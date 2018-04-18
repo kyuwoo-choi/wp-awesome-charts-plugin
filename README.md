@@ -1,1 +1,1 @@
-# WP Awesome Charts Plugin
+# wp-develop-o-embed-plugin
