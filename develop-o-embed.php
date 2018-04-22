@@ -22,8 +22,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-require_once( 'lib/class-develop-o-embed.php' );
-require_once( 'lib/class-develop-o-embed-settings.php' );
+require_once( 'includes/class-develop-o-embed.php' );
+require_once( 'includes/class-develop-o-embed-settings.php' );
 
 /**
  * Create plugin instance
