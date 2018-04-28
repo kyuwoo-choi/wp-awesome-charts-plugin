@@ -8,16 +8,18 @@
             "email": "kyuwoo.choi@gmail.com"
         }
     ],
-    "require": {
+		"require": {
         "composer/installers": "^1.5"
     },
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "^0.4.4",
         "wimg/php-compatibility": "^8.1",
         "wp-coding-standards/wpcs": "^0.14.1",
-        "squizlabs/php_codesniffer": "^3.2"
+        "squizlabs/php_codesniffer": "^3.2",
+        "phpunit/phpunit": "^7.1"
     },
     "scripts": {
-      "lint": "phpcs"
+      "lint": "phpcs",
+			"test": "phpunit"
     }
 }
