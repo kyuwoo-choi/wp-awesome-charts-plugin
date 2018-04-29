@@ -10,6 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+require_once( 'class-embed-replacer-manager.php' );
+
 /**
  * Develop_O_Embed class
  *
@@ -54,17 +56,6 @@ class Develop_O_Embed {
 	public $settings;
 
 	/**
-	 * Constructor function
-	 *
-	 * @param string $file The main plugin path.
-	 * @param string $version The version number.
-	 */
-	public function __construct( $file = '', $version = '1.0.0' ) {
-		$this->file    = $file;
-		$this->version = $version;
-	}
-
-	/**
 	 * Main Develop_O_Embed Instance
 	 * Ensures only one instance of Develop_O_Embed is loaded or can be loaded.
 	 *
@@ -79,5 +70,53 @@ class Develop_O_Embed {
 			self::$_instance = new self( $file, $version );
 		}
 		return self::$_instance;
+	}
+
+	/**
+	 * Constructor function
+	 *
+	 * @param string $file The main plugin path.
+	 * @param string $version The version number.
+	 */
+	public function __construct( $file = '', $version = '1.0.0' ) {
+		$this->file    = $file;
+		$this->version = $version;
+
+		$this->replacer = new Embed_Replacer_Manager();
+
+		add_action( 'init', array( $this, 'on_init' ) );
+	}
+
+	/**
+	 * Called on init
+	 * Initialize WP Hooks
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 */
+	public function on_init() {
+		wp_embed_register_handler(
+			'develop-o-embed',
+			'@^https?://([^\s/$.?#].[^\s]*)$@iS',
+			array( $this, 'embed_handler' )
+		);
+	}
+
+	/**
+	 * WP embed handler
+	 *
+	 * @param  array  $matches Matches.
+	 * @param  array  $attr    Attributes.
+	 * @param  string $url     Url string.
+	 * @param  string $rawattr Raw attribute.
+	 * @return string          Replaced oEmbed string.
+	 */
+	public function embed_handler( $matches, $attr, $url, $rawattr ) {
+		$url_components = parse_url( $matches[0] );
+		if ( ! $url_components ) {
+			return false;
+		}
+
+		return $this->replacer->replace( $url_components );
 	}
 }

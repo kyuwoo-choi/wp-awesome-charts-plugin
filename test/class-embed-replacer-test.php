@@ -10,8 +10,8 @@ final class Embed_Replacer_Test extends TestCase {
 		$this->replacer = new class() extends Embed_Replacer {
 			public static $name = 'temp';
 
-			public function replace( $url ) {
-				return sprintf( '<div>Elements made out of %s</div>', $url );
+			public function replace( $url_components ) {
+				return sprintf( '<div>Elements made out of %s</div>', $url_components['host'] );
 			}
 		};
 	}
@@ -21,6 +21,8 @@ final class Embed_Replacer_Test extends TestCase {
 	}
 
 	public function test_replace_returns_replaced_embed_string() {
-		$this->assertInternalType( 'string', $this->replacer->replace( 'http://google.com' ) );
+		$url_components = parse_url( 'http://google.com' );
+
+		$this->assertInternalType( 'string', $this->replacer->replace( $url_components ) );
 	}
 }

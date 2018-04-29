@@ -30,10 +30,10 @@ abstract class Embed_Replacer {
 	/**
 	 * Create and return oEmbed string out of given url.
 	 *
-	 * @param string $url Url to replace.
+	 * @param array $url_components Url components to replace.
 	 * @return string The oEmbed string.
 	 */
-	public abstract function replace( $url );
+	public abstract function replace( $url_components );
 
 	/**
 	 * Get the name of the replacer
