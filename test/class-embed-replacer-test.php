@@ -1,5 +1,5 @@
 <?php
-require_once( 'includes/embed-handlers/class-embed-replacer.php' );
+require_once( 'includes/embed-replacer/class-embed-replacer.php' );
 
 use PHPUnit\Framework\TestCase;
 
