@@ -8,3 +8,5 @@ vendor
 .DS_Store
 *.log
 .ac-php-conf.json
+
+\.vscode/
