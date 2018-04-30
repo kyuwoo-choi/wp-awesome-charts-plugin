@@ -11,6 +11,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 require_once( 'class-embed-replacer-manager.php' );
+require_once( 'embed-replacer/class-gist-embed-replacer.php' );
 
 /**
  * Develop_O_Embed class
@@ -82,7 +83,7 @@ class Develop_O_Embed {
 		$this->file    = $file;
 		$this->version = $version;
 
-		$this->replacer = new Embed_Replacer_Manager();
+		$this->initialize_replacer_manager();
 
 		add_action( 'init', array( $this, 'on_init' ) );
 	}
@@ -110,6 +111,8 @@ class Develop_O_Embed {
 	 * @param  string $url     Url string.
 	 * @param  string $rawattr Raw attribute.
 	 * @return string          Replaced oEmbed string.
+	 * @since 1.0.0
+	 * @access public
 	 */
 	public function embed_handler( $matches, $attr, $url, $rawattr ) {
 		$url_components = parse_url( $matches[0] );
@@ -118,5 +121,17 @@ class Develop_O_Embed {
 		}
 
 		return $this->replacer->replace( $url_components );
+	}
+
+	/**
+	 * Initialize Embed_Replacer_Manager
+	 *
+	 * @since 1.0.0
+	 * @access protected
+	 */
+	protected function initialize_replacer_manager() {
+		$this->replacer = new Embed_Replacer_Manager();
+
+		$this->replacer->add_replacer( new Gist_Embed_Replacer() );
 	}
 }
