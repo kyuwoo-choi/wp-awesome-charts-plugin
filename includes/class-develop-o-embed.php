@@ -12,6 +12,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 require_once( 'class-embed-replacer-manager.php' );
 require_once( 'embed-replacer/class-gist-embed-replacer.php' );
+require_once( 'embed-replacer/class-codepen-embed-replacer.php' );
 
 /**
  * Develop_O_Embed class
@@ -120,6 +121,9 @@ class Develop_O_Embed {
 			return false;
 		}
 
+		$url_components['paths'] = explode( '/', $url_components['path'] );
+		var_dump( $url_components );
+
 		return $this->replacer->replace( $url_components );
 	}
 
@@ -133,5 +137,6 @@ class Develop_O_Embed {
 		$this->replacer = new Embed_Replacer_Manager();
 
 		$this->replacer->add_replacer( new Gist_Embed_Replacer() );
+		$this->replacer->add_replacer( new Codepen_Embed_Replacer() );
 	}
 }
