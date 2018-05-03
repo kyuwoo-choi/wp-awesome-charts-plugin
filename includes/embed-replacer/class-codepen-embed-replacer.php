@@ -58,7 +58,7 @@ class Codepen_Embed_Replacer extends Embed_Replacer {
 	 */
 	public function replace( $url_components ) {
 		if ( 'codepen.io' != $url_components['host']
-			or count( 4 != $url_components['paths'] ) ) {
+			or 4 < count( $url_components['paths'] ) ) {
 			return false;
 		}
 

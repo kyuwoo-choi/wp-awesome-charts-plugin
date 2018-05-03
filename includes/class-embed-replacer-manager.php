@@ -52,7 +52,7 @@ class Embed_Replacer_Manager {
 		foreach ( $this->replacers as $replacer ) {
 			$result = $replacer->replace( $url );
 
-			if ( ! is_null( $result ) ) {
+			if ( $result ) {
 				break;
 			}
 		}

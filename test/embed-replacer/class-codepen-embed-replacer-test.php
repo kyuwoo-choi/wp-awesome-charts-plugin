@@ -17,10 +17,10 @@ final class Codepen_Embed_Replacer_Test extends TestCase {
 	public function test_replace_returns_replaced_embed_string() {
 		$url                     = 'https://codepen.io/kyuwoo-choi/pen/JOyZzz';
 		$url_components          = parse_url( $url );
-		$path_components         = explode( '/', $url_components['path'] );
-		$url_components['paths'] = $path_components;
-		$slug                    = $path_components[3];
-		$user                    = $path_components[1];
+		$paths                   = explode( '/', $url_components['path'] );
+		$url_components['paths'] = $paths;
+		$slug                    = $paths[3];
+		$user                    = $paths[1];
 
 		$embed_string = $this->replacer->replace( $url_components );
 
