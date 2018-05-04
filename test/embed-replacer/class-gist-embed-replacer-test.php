@@ -16,7 +16,10 @@ final class Gist_Embed_Replacer_Test extends TestCase {
 
 	public function test_replace_returns_replaced_embed_string() {
 		$url = 'https://gist.github.com/kyuwoo-choi/768976a44ebcdb495283533d6d1bf720';
-		$url_components = parse_url( $url );
+
+		$url_components          = parse_url( $url );
+		$url_components['paths'] = explode( '/', $url_components['path'] );
+
 		$embed_string = $this->replacer->replace( $url_components );
 
 		$this->assertInternalType( 'string', $embed_string );

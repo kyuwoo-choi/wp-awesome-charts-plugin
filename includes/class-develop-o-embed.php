@@ -107,22 +107,19 @@ class Develop_O_Embed {
 	/**
 	 * WP embed handler
 	 *
-	 * @param  array  $matches Matches.
-	 * @param  array  $attr    Attributes.
-	 * @param  string $url     Url string.
-	 * @param  string $rawattr Raw attribute.
-	 * @return string          Replaced oEmbed string.
+	 * @param  array $matches Matches.
+	 * @return string Replaced oEmbed string.
 	 * @since 1.0.0
 	 * @access public
 	 */
-	public function embed_handler( $matches, $attr, $url, $rawattr ) {
-		$url_components = parse_url( $matches[0] );
+	public function embed_handler( $matches ) {
+		$url            = preg_replace( '/\/$/', '', $matches[0] );
+		$url_components = parse_url( $url );
 		if ( ! $url_components ) {
 			return false;
 		}
 
 		$url_components['paths'] = explode( '/', $url_components['path'] );
-		var_dump( $url_components );
 
 		return $this->replacer->replace( $url_components );
 	}

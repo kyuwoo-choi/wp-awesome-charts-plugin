@@ -36,7 +36,7 @@ class Gist_Embed_Replacer extends Embed_Replacer {
 	 */
 	public function replace( $url_components ) {
 		if ( 'gist.github.com' != $url_components['host']
-			or 3 < count( $url_components['paths'] ) ) {
+			or 3 != count( $url_components['paths'] ) ) {
 			return false;
 		}
 

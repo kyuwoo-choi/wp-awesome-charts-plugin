@@ -58,13 +58,12 @@ class Codepen_Embed_Replacer extends Embed_Replacer {
 	 */
 	public function replace( $url_components ) {
 		if ( 'codepen.io' != $url_components['host']
-			or 4 < count( $url_components['paths'] ) ) {
+			or 4 != count( $url_components['paths'] ) ) {
 			return false;
 		}
 
-		$paths = $url_components['paths'];
-		$slug  = $paths[3];
-		$user  = $paths[1];
+		$slug = $url_components['paths'][3];
+		$user = $url_components['paths'][1];
 
 		return sprintf(
 			static::$template,
